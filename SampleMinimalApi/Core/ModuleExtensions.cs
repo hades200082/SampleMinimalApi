@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using Serilog;
 
 namespace SampleMinimalApi.Core;
 
@@ -22,7 +23,7 @@ public static class ModuleExtensions
             module.RegisterModule(services);
             RegisteredModules.Add(module);
         }
-
+        
         return services;
     }
     
@@ -35,5 +36,28 @@ public static class ModuleExtensions
         }
         app.UseSwaggerUI();
         return app;
+    }
+    
+    public static ConfigureHostBuilder UseLogging(this ConfigureHostBuilder builder, IWebHostEnvironment env)
+    {
+        if (env.IsDevelopment())
+        {
+            builder.UseSerilog((context, c) =>
+            {
+                c.WriteTo.Console();
+                c.WriteTo.Debug();
+                c.ReadFrom.Configuration(context.Configuration);
+            });
+        }
+        else
+        {
+            builder.UseSerilog((context, c) =>
+            {
+                // TODO: Add your production Serilog configuration here
+                c.ReadFrom.Configuration(context.Configuration);
+            });
+        }
+        
+        return builder;
     }
 }
