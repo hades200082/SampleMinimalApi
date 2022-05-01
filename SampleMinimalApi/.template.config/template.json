@@ -1,0 +1,12 @@
+﻿{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Lee Conlin",
+  "classifications": [ "Web", "Minimal API", "API" ],
+  "identity": "LeeConlin.MinimalApi",
+  "name": "Minimal API starter template",
+  "shortName": "lc-minimal-api",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  }
+}
